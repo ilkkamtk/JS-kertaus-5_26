@@ -20,7 +20,7 @@ function distance(restaurantLocation, myLocation) {
 async function getRestaurants() {
   const response = await fetch(apiURL + '/restaurants');
   restaurants = await response.json();
-  renderRestaurants();
+  navigator.geolocation.getCurrentPosition(success, error, options);
 }
 
 function renderRestaurants() {
@@ -86,13 +86,13 @@ function success(pos) {
 
     return etaisyysA - etaisyysB;
   });
+  renderRestaurants();
 }
 
 // Function to be called if an error occurs while retrieving location information
 function error(err) {
   console.warn(`ERROR(${err.code}): ${err.message}`);
+  renderRestaurants();
 }
-
-navigator.geolocation.getCurrentPosition(success, error, options);
 
 getRestaurants();
