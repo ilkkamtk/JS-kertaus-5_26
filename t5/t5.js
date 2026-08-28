@@ -48,7 +48,7 @@ function renderRestaurants() {
     tr.append(nameTd, addressTd, companyTd, cityTd);
 
     // klikkieventti, näytä ravintolan tiedot dialogissa
-    tr.addEventListener('click', function () {
+    tr.addEventListener('click', async function () {
       for (const rivi of document.querySelectorAll('tr')) {
         rivi.classList.remove('highlight');
       }
@@ -63,6 +63,11 @@ function renderRestaurants() {
       </div>
       `;
       // hae päivän menu ***
+      // eslint-disable-next-line no-undef
+      const dailyMenu = await fetchData(
+        `${apiURL}/restaurants/daily/${restaurant._id}/fi`
+      );
+      console.log(dailyMenu.courses[0]);
 
       // *******************
       menuDialog.insertAdjacentHTML('beforeend', modalHTMl);
