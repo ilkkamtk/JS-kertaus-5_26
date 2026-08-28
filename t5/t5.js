@@ -18,9 +18,13 @@ function distance(restaurantLocation, myLocation) {
 }
 
 async function getRestaurants() {
-  const response = await fetch(apiURL + '/restaurants');
-  restaurants = await response.json();
-  navigator.geolocation.getCurrentPosition(success, error, options);
+  try {
+    // eslint-disable-next-line no-undef
+    restaurants = await fetchData(apiURL + '/restaurants');
+    navigator.geolocation.getCurrentPosition(success, error, options);
+  } catch (error) {
+    console.error(error.message);
+  }
 }
 
 function renderRestaurants() {
@@ -52,14 +56,17 @@ function renderRestaurants() {
       tr.classList.add('highlight');
 
       menuDialog.innerHTML = '';
-      menuDialog.showModal();
       const modalHTMl = `
-        <div>
-          <h3>${restaurant.name}</h3>
-          <p>${restaurant.phone}</p>
-        </div>
+      <div>
+      <h3>${restaurant.name}</h3>
+      <p>${restaurant.phone}</p>
+      </div>
       `;
+      // hae päivän menu ***
+
+      // *******************
       menuDialog.insertAdjacentHTML('beforeend', modalHTMl);
+      menuDialog.showModal();
     });
 
     target.append(tr);
