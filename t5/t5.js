@@ -67,7 +67,7 @@ function renderRestaurants() {
       const dailyMenu = await fetchData(
         `${apiURL}/restaurants/daily/${restaurant._id}/fi`
       );
-      console.log(dailyMenu.courses[0]);
+      console.log(dailyMenu.courses);
 
       // *******************
       menuDialog.insertAdjacentHTML('beforeend', modalHTMl);
